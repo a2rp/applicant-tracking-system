@@ -395,6 +395,10 @@
     button {
         min-height: 41px;
     }
+
+    @media (max-width: 520px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .stageError {
@@ -454,10 +458,4 @@
     color: #85889a;
     font-size: 13px;
     line-height: 1.5;
-}
-
-@media (max-width: 520px) {
-    .addStageForm {
-        grid-template-columns: 1fr;
-    }
 }

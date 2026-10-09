@@ -708,6 +708,25 @@
         }
     }
 
+    @media (max-width: 600px) {
+        .interviewRow {
+            grid-template-columns: 32px minmax(0, 1fr) auto;
+        }
+
+        .interviewStatus {
+            grid-column: 2;
+            justify-self: start;
+        }
+
+        .interviewRow .inlineAction {
+            grid-row: 2;
+        }
+
+        .sectionHeading {
+            align-items: flex-start;
+        }
+    }
+
     @media (max-width: 560px) {
         .detailGrid {
             grid-template-columns: 1fr;
@@ -1051,24 +1070,5 @@
         border-color: #a7a1e9;
         outline: 0;
         box-shadow: 0 0 0 3px rgb(98 86 217 / 9%);
-    }
-}
-
-@media (max-width: 600px) {
-    .interviewRow {
-        grid-template-columns: 32px minmax(0, 1fr) auto;
-    }
-
-    .interviewStatus {
-        grid-column: 2;
-        justify-self: start;
-    }
-
-    .interviewRow .inlineAction {
-        grid-row: 2;
-    }
-
-    .sectionHeading {
-        align-items: flex-start;
     }
 }

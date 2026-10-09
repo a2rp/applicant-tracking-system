@@ -31,6 +31,10 @@
     font-weight: 600;
     animation: toastEnter 220ms ease both;
     pointer-events: auto;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
 }
 
 .icon {
@@ -80,11 +84,5 @@
     to {
         opacity: 1;
         scale: 1;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .toast {
-        animation: none;
     }
 }
