@@ -235,11 +235,6 @@
     border-bottom: 1px solid rgb(231 232 240 / 90%);
     background: rgb(255 255 255 / 93%);
     backdrop-filter: blur(18px);
-    transition: transform 240ms ease;
-
-    &[data-hidden="true"] {
-        transform: translateY(-100%);
-    }
 
     .topbarInner {
         display: flex;

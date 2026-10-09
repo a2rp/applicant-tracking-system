@@ -43,7 +43,6 @@ const pageNames = {
 
 const Header = ({ candidateCount = 0 }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [headerHidden, setHeaderHidden] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const sidebarRef = useRef(null);
     const headerRef = useRef(null);
@@ -69,22 +68,6 @@ const Header = ({ candidateCount = 0 }) => {
             document.removeEventListener("pointerdown", closeIfOutside);
             document.removeEventListener("keydown", closeOnEscape);
         };
-    }, [menuOpen]);
-
-    useEffect(() => {
-        let previousScrollY = window.scrollY;
-        const updateHeaderVisibility = () => {
-            const currentScrollY = window.scrollY;
-            if (menuOpen || currentScrollY <= 8) setHeaderHidden(false);
-            else if (currentScrollY > previousScrollY) setHeaderHidden(true);
-            else if (currentScrollY < previousScrollY) setHeaderHidden(false);
-            previousScrollY = currentScrollY;
-        };
-        window.addEventListener("scroll", updateHeaderVisibility, {
-            passive: true,
-        });
-        return () =>
-            window.removeEventListener("scroll", updateHeaderVisibility);
     }, [menuOpen]);
 
     useEffect(() => {
@@ -190,7 +173,6 @@ const Header = ({ candidateCount = 0 }) => {
 
             <header
                 className={styles.topbar}
-                data-hidden={headerHidden}
                 ref={headerRef}
             >
                 <div className={styles.topbarInner}>
