@@ -1,5 +1,6 @@
 const escapeCsvCell = (value) => {
-    const text = String(value ?? "");
+    const rawText = String(value ?? "");
+    const text = /^[\s]*[=+@-]/.test(rawText) ? `'${rawText}` : rawText;
     return `"${text.replaceAll('"', '""')}"`;
 };
 

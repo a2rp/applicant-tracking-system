@@ -952,6 +952,86 @@
     font-weight: 600;
 }
 
+.resumeField > span small {
+    display: block;
+    margin-top: 3px;
+    color: #85889a;
+    font-size: 13px;
+    font-weight: 450;
+}
+
+.resumeField input[type="file"] {
+    min-height: 42px;
+    padding: 6px;
+    border: 1px dashed #d9d8eb;
+    border-radius: 8px;
+    color: #62667a;
+    background: #fafafe;
+    font-size: 13px;
+
+    &::file-selector-button {
+        min-height: 28px;
+        margin-right: 8px;
+        padding: 0 9px;
+        border: 1px solid #e1e0ee;
+        border-radius: 6px;
+        color: #55596c;
+        background: #fff;
+        font-size: 13px;
+        font-weight: 600;
+    }
+}
+
+.resumeMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 9px;
+    border: 1px solid #e9e8f2;
+    border-radius: 7px;
+    color: #62667a;
+    background: #fff;
+    font-size: 13px;
+
+    > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    button {
+        flex: 0 0 auto;
+        padding: 4px 6px;
+        border: 0;
+        color: #b04a57;
+        background: transparent;
+        font-size: 13px;
+        font-weight: 650;
+    }
+}
+
+.resumeLink {
+    display: inline-flex;
+    min-height: 39px;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 0 12px;
+    border: 1px solid #e3e2ef;
+    border-radius: 8px;
+    color: #5750bd;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 650;
+
+    svg {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 auto;
+    }
+}
+
 .form .field textarea {
     width: 100%;
     min-height: 100px;

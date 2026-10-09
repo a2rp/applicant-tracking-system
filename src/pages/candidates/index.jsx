@@ -109,9 +109,10 @@ const InterviewForm = ({ candidate, onCancel, onSave }) => {
     );
 };
 
-const ScorecardForm = ({ onCancel, onSave }) => {
+const ScorecardForm = ({ interview, onCancel, onSave }) => {
     const [scores, setScores] = useState({ roleSkills: "3", communication: "3", problemSolving: "3", collaboration: "3" });
     const [notes, setNotes] = useState("");
+    const [interviewer, setInterviewer] = useState(interview?.interviewer || "");
     const criteria = [
         ["roleSkills", "Role skills"],
         ["communication", "Communication"],
@@ -121,9 +122,13 @@ const ScorecardForm = ({ onCancel, onSave }) => {
     return (
         <form className={styles.form} onSubmit={(event) => {
             event.preventDefault();
-            onSave({ id: `scorecard-${Date.now()}`, scores: Object.fromEntries(Object.entries(scores).map(([key, value]) => [key, Number(value)])), notes: notes.trim(), createdAt: new Date().toISOString() });
+            onSave({ id: `scorecard-${Date.now()}`, interviewId: interview?.id || "", interviewer: interviewer.trim(), scores: Object.fromEntries(Object.entries(scores).map(([key, value]) => [key, Number(value)])), notes: notes.trim(), createdAt: new Date().toISOString() });
         }}>
             <div className={styles.fieldGrid}>
+                <label className={`${styles.field} ${styles.fullWidth}`}>
+                    <span>Interviewer</span>
+                    <input maxLength="70" onChange={(event) => setInterviewer(event.target.value)} placeholder="Interviewer name" required value={interviewer} />
+                </label>
                 {criteria.map(([key, label]) => (
                     <label className={styles.field} key={key}>
                         <span>{label}</span>
@@ -160,6 +165,9 @@ const formatInterviewDate = (date) =>
     new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }).format(new Date(date));
 
 const CandidateForm = ({ candidate, jobs, stages, onCancel, onSave }) => {
+    const resumeInputRef = useRef(null);
+    const [resumeError, setResumeError] = useState("");
+    const [resumeReading, setResumeReading] = useState(false);
     const [values, setValues] = useState(() => ({
         name: candidate?.name || "",
         email: candidate?.email || "",
@@ -169,12 +177,41 @@ const CandidateForm = ({ candidate, jobs, stages, onCancel, onSave }) => {
         location: candidate?.location || "",
         experience: candidate?.experience || "",
         note: candidate?.note || "",
+        resumeName: candidate?.resumeName || "",
+        resumeData: candidate?.resumeData || "",
     }));
     const updateValue = (event) =>
         setValues((current) => ({
             ...current,
             [event.target.name]: event.target.value,
         }));
+    const chooseResume = (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        const extension = file.name.split(".").pop().toLowerCase();
+        if (!["pdf", "doc", "docx"].includes(extension)) {
+            setResumeError("Choose a PDF, DOC, or DOCX resume.");
+            event.target.value = "";
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            setResumeError("Resume files must be 5 MB or smaller.");
+            event.target.value = "";
+            return;
+        }
+        const reader = new FileReader();
+        setResumeReading(true);
+        reader.onload = () => {
+            setValues((current) => ({ ...current, resumeName: file.name, resumeData: reader.result }));
+            setResumeError("");
+            setResumeReading(false);
+        };
+        reader.onerror = () => {
+            setResumeReading(false);
+            setResumeError("The selected file could not be read. Try another file.");
+        };
+        reader.readAsDataURL(file);
+    };
     const submitForm = (event) => {
         event.preventDefault();
         onSave({
@@ -203,6 +240,12 @@ const CandidateForm = ({ candidate, jobs, stages, onCancel, onSave }) => {
                         value={values.name}
                     />
                 </label>
+                <div className={`${styles.field} ${styles.resumeField}`}>
+                    <span>Resume attachment <small>PDF, DOC, or DOCX · up to 5 MB · held for this session</small></span>
+                    <input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={chooseResume} ref={resumeInputRef} type="file" />
+                    {values.resumeName && <div className={styles.resumeMeta}><span>{values.resumeName}</span><button onClick={() => { setValues((current) => ({ ...current, resumeName: "", resumeData: "" })); if (resumeInputRef.current) resumeInputRef.current.value = ""; }} type="button">Remove</button></div>}
+                    {resumeError && <small className={styles.formError} role="alert">{resumeError}</small>}
+                </div>
                 <label className={styles.field}>
                     <span>Email address</span>
                     <input
@@ -220,9 +263,9 @@ const CandidateForm = ({ candidate, jobs, stages, onCancel, onSave }) => {
                     <select
                         name="jobId"
                         onChange={updateValue}
-                        required
                         value={values.jobId}
                     >
+                        <option value="">Unassigned</option>
                         {jobs.map((job) => (
                             <option key={job.id} value={job.id}>
                                 {job.title}
@@ -294,8 +337,8 @@ const CandidateForm = ({ candidate, jobs, stages, onCancel, onSave }) => {
                 >
                     Cancel
                 </button>
-                <button className={styles.primaryButton} type="submit">
-                    {candidate ? "Save changes" : "Add candidate"}
+                <button className={styles.primaryButton} disabled={resumeReading} type="submit">
+                    {resumeReading ? "Reading resume…" : candidate ? "Save changes" : "Add candidate"}
                 </button>
             </div>
         </form>
@@ -318,6 +361,7 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
     const [pendingDelete, setPendingDelete] = useState(null);
     const [interviewCandidate, setInterviewCandidate] = useState(null);
     const [scorecardCandidate, setScorecardCandidate] = useState(null);
+    const [scorecardInterview, setScorecardInterview] = useState(null);
     const [pendingInterviewCancel, setPendingInterviewCancel] = useState(null);
     const cancelRef = useRef(null);
 
@@ -360,7 +404,7 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
         }
     };
     const roleName = (jobId) =>
-        jobs.find((job) => job.id === jobId)?.title || "Role removed";
+        jobs.find((job) => job.id === jobId)?.title || (jobId ? "Role removed" : "Unassigned");
     const saveCandidate = (candidate) => {
         setCandidates((current) =>
             current.some((item) => item.id === candidate.id)
@@ -404,12 +448,14 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
         setCandidates((current) => current.map((item) => item.id === candidate.id ? { ...item, scorecards: [...(item.scorecards || []), scorecard] } : item));
         setSelectedCandidate((current) => current?.id === candidate.id ? { ...current, scorecards: [...(current.scorecards || []), scorecard] } : current);
         setScorecardCandidate(null);
+        setScorecardInterview(null);
         notify("Scorecard saved to " + candidate.name + "’s profile");
         recordActivity({ candidateId: candidate.id, action: "received interview scorecard feedback" });
     };
     const finishInterview = (interview) => {
         setInterviews((current) => current.map((item) => item.id === interview.id ? { ...item, status: "Completed" } : item));
         setScorecardCandidate(selectedCandidate);
+        setScorecardInterview(interview);
         notify("Interview marked complete. Add the interviewer’s scorecard.", "info");
         recordActivity({ candidateId: interview.candidateId, action: "completed an interview" });
     };
@@ -693,6 +739,11 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
                                     "No recruiter note added yet."}
                             </p>
                         </div>
+                        {selectedCandidate.resumeData && (
+                            <a className={styles.resumeLink} download={selectedCandidate.resumeName} href={selectedCandidate.resumeData}>
+                                <FiDownload aria-hidden="true" /> Download {selectedCandidate.resumeName}
+                            </a>
+                        )}
                         <section className={styles.interviewSection}>
                             <div className={styles.sectionHeading}>
                                 <div>
@@ -726,7 +777,7 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
                                     <h3>Interview scorecards</h3>
                                     <p>Structured feedback for a consistent hiring decision.</p>
                                 </div>
-                                <button className={styles.secondaryButton} onClick={() => setScorecardCandidate(selectedCandidate)} type="button">
+                                <button className={styles.secondaryButton} onClick={() => { setScorecardInterview(null); setScorecardCandidate(selectedCandidate); }} type="button">
                                     <FiClipboard aria-hidden="true" /> Add scorecard
                                 </button>
                             </div>
@@ -736,7 +787,7 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
                                         const values = Object.values(scorecard.scores);
                                         const average = values.reduce((sum, value) => sum + value, 0) / values.length;
                                         return <article className={styles.scorecard} key={scorecard.id}>
-                                            <div><strong>{average.toFixed(1)} / 5</strong><time>{formatInterviewDate(scorecard.createdAt)}</time></div>
+                                            <div><strong>{average.toFixed(1)} / 5</strong><time>{scorecard.interviewer ? `${scorecard.interviewer} · ` : ""}{formatInterviewDate(scorecard.createdAt)}</time></div>
                                             <p>{scorecard.notes || "No written feedback was added."}</p>
                                             <span>Role skills {scorecard.scores.roleSkills} · Communication {scorecard.scores.communication} · Problem solving {scorecard.scores.problemSolving} · Collaboration {scorecard.scores.collaboration}</span>
                                         </article>;
@@ -809,8 +860,8 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
                 </Dialog>
             )}
             {scorecardCandidate && (
-                <Dialog description={`Rate the interview criteria for ${scorecardCandidate.name}.`} onClose={() => setScorecardCandidate(null)} title="Add interview scorecard">
-                    <ScorecardForm onCancel={() => setScorecardCandidate(null)} onSave={(scorecard) => saveScorecard(scorecardCandidate, scorecard)} />
+                <Dialog description={`Rate the interview criteria for ${scorecardCandidate.name}.`} onClose={() => { setScorecardCandidate(null); setScorecardInterview(null); }} title="Add interview scorecard">
+                    <ScorecardForm interview={scorecardInterview} onCancel={() => { setScorecardCandidate(null); setScorecardInterview(null); }} onSave={(scorecard) => saveScorecard(scorecardCandidate, scorecard)} />
                 </Dialog>
             )}
             {pendingInterviewCancel && (
