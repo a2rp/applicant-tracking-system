@@ -1,4 +1,4 @@
-﻿.footer {
+.footer {
     margin-left: 258px;
     padding: 30px 42px 25px;
     border-top: 1px solid var(--color-border);
@@ -41,7 +41,7 @@
 
             p {
                 color: var(--color-muted);
-                font-size: 11px;
+                font-size: 13px;
                 white-space: nowrap;
 
                 a {
@@ -107,14 +107,14 @@
 
                     strong {
                         color: #fff;
-                        font-size: 11px;
+                        font-size: 13px;
                         font-weight: 700;
                         line-height: 1.25;
                     }
 
                     span {
                         color: rgb(255 255 255 / 68%);
-                        font-size: 10px;
+                        font-size: 13px;
                         line-height: 1.25;
                     }
                 }
@@ -147,7 +147,7 @@
 
         .inner {
             .identity p {
-                font-size: 10px;
+                font-size: 13px;
             }
         }
     }

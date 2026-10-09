@@ -10,9 +10,9 @@
         gap: 24px;
         margin-bottom: 24px;
 
-        .breadcrumb { color: #9699aa; font-size: 11px; }
+        .breadcrumb { color: #9699aa; font-size: 13px; }
         h1 { margin-top: 6px; color: #2c3046; font-size: 29px; font-weight: 750; letter-spacing: -.045em; }
-        .description { margin-top: 5px; color: var(--color-muted); font-size: 13px; }
+        .description { margin-top: 5px; color: var(--color-muted); font-size: 14px; }
     }
 
     .primaryButton,
@@ -26,7 +26,7 @@
         padding: 0 15px;
         border: 1px solid transparent;
         border-radius: 9px;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 700;
 
         svg { width: 15px; height: 15px; }
@@ -57,7 +57,7 @@
                 gap: 2px;
 
                 strong { color: #383c52; font-size: 17px; font-weight: 750; }
-                small { color: #979aab; font-size: 10px; }
+                small { color: #979aab; font-size: 13px; }
             }
         }
 
@@ -115,17 +115,17 @@
                 outline: 0;
                 color: #41455a;
                 background: transparent;
-                font-size: 11px;
+                font-size: 13px;
                 &::placeholder { color: #a4a6b4; }
             }
         }
 
         .statusFilter {
-            span { color: #999cad; font-size: 10px; }
-            select { min-width: 90px; border: 0; outline: 0; color: #565a70; background: #fff; font-size: 11px; }
+            span { color: #999cad; font-size: 13px; }
+            select { min-width: 90px; border: 0; outline: 0; color: #565a70; background: #fff; font-size: 13px; }
         }
 
-        .resultCount { margin-left: auto; color: #9396a7; font-size: 10px; }
+        .resultCount { margin-left: auto; color: #9396a7; font-size: 13px; }
     }
 
     .sectionTitle {
@@ -135,7 +135,7 @@
         margin-bottom: 13px;
 
         h2 { color: #3c4055; font-size: 14px; font-weight: 720; }
-        p { margin-top: 3px; color: #9b9dae; font-size: 10px; }
+        p { margin-top: 3px; color: #9b9dae; font-size: 13px; }
     }
 
     .jobGrid {
@@ -175,7 +175,7 @@
                 padding: 0 8px;
                 border: 1px solid transparent;
                 border-radius: 7px;
-                font-size: 9px;
+                font-size: 13px;
                 font-weight: 700;
             }
             .open { color: #3d8657; background: #ebf7ee; }
@@ -184,7 +184,7 @@
         }
 
         h3 { overflow: hidden; margin-top: 16px; color: #373b50; font-size: 14px; font-weight: 730; text-overflow: ellipsis; white-space: nowrap; }
-        .department { margin-top: 4px; color: #9396a7; font-size: 10px; }
+        .department { margin-top: 4px; color: #9396a7; font-size: 13px; }
 
         .jobMeta {
             display: flex;
@@ -192,7 +192,7 @@
             gap: 8px 13px;
             margin-top: 14px;
             color: #777b8e;
-            font-size: 9px;
+            font-size: 13px;
 
             span { display: inline-flex; align-items: center; gap: 5px; }
             svg { width: 13px; height: 13px; color: #9a9dae; }
@@ -207,12 +207,12 @@
             margin-top: 8px;
             border-top: 1px solid #f0f0f5;
 
-            > a { color: #6e64c9; font-size: 10px; font-weight: 650; }
+            > a { color: #6e64c9; font-size: 13px; font-weight: 650; }
         }
 
         .avatarStack { display: flex; align-items: center; padding-left: 3px; }
         .avatarStack > span { margin-left: -6px; }
-        .moreApplicants { display: grid; width: 31px; height: 31px; place-items: center; border: 2px solid #fff; border-radius: 50%; color: #6f65ca; background: #efedff; font-size: 8px; font-weight: 700; }
+        .moreApplicants { display: grid; width: 31px; height: 31px; place-items: center; border: 2px solid #fff; border-radius: 50%; color: #6f65ca; background: #efedff; font-size: 13px; font-weight: 700; }
 
         .jobFooter {
             display: flex;
@@ -223,8 +223,8 @@
             border-top: 1px solid #f0f0f5;
 
             > span:first-child { display: grid; min-width: 0; gap: 3px; }
-            small { color: #9b9dae; font-size: 8px; }
-            strong { overflow: hidden; color: #5b5f73; font-size: 9px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+            small { color: #9b9dae; font-size: 13px; }
+            strong { overflow: hidden; color: #5b5f73; font-size: 13px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
         }
 
         .cardActions {
@@ -261,8 +261,8 @@
         background: #fff;
 
         svg { width: 25px; height: 25px; }
-        strong { color: #52566b; font-size: 13px; }
-        span { font-size: 11px; }
+        strong { color: #52566b; font-size: 14px; }
+        span { font-size: 13px; }
     }
 
     .notice {
@@ -276,7 +276,7 @@
         color: #4439a9;
         background: #fff;
         box-shadow: 0 12px 35px rgb(32 36 58 / 14%);
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 650;
     }
 
@@ -315,7 +315,7 @@
         min-width: 0;
         gap: 6px;
 
-        span { color: #62667a; font-size: 11px; font-weight: 650; }
+        span { color: #62667a; font-size: 13px; font-weight: 650; }
         input,
         select {
             width: 100%;
@@ -325,7 +325,7 @@
             border-radius: 8px;
             color: #45495e;
             background: #fff;
-            font-size: 12px;
+            font-size: 14px;
 
             &:focus { border-color: #a7a1e9; outline: 0; box-shadow: 0 0 0 3px rgb(98 86 217 / 9%); }
             &::placeholder { color: #a4a6b4; }
@@ -334,7 +334,7 @@
 
     .formActions { display: flex; justify-content: flex-end; gap: 9px; padding-top: 16px; border-top: 1px solid #efeff4; }
     .primaryButton,
-    .secondaryButton { min-height: 40px; padding: 0 16px; border: 1px solid transparent; border-radius: 8px; font-size: 11px; font-weight: 700; }
+    .secondaryButton { min-height: 40px; padding: 0 16px; border: 1px solid transparent; border-radius: 8px; font-size: 13px; font-weight: 700; }
     .primaryButton { border-color: var(--color-primary); color: #fff; background: var(--color-primary); }
     .secondaryButton { border-color: #e4e5ed; color: #65697d; background: #fff; }
 
@@ -348,7 +348,7 @@
     justify-content: flex-end;
     gap: 9px;
 
-    button { min-height: 40px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 11px; font-weight: 700; }
+    button { min-height: 40px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-size: 13px; font-weight: 700; }
     .secondaryButton { border-color: #e4e5ed; color: #65697d; background: #fff; }
     .dangerButton { border-color: #b74755; color: #fff; background: #bd4b58; }
 }

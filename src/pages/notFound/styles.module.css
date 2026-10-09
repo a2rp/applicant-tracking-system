@@ -6,9 +6,9 @@
     gap: 12px;
     text-align: center;
 
-    .code { color: #7268d4; font-size: 13px; font-weight: 800; letter-spacing: .12em; }
+    .code { color: #7268d4; font-size: 14px; font-weight: 800; letter-spacing: .12em; }
     h1 { color: #33374d; font-size: 24px; font-weight: 750; letter-spacing: -.035em; }
-    p { color: #888c9f; font-size: 12px; }
+    p { color: #888c9f; font-size: 14px; }
 
     a {
         display: inline-flex;
@@ -21,7 +21,7 @@
         border-radius: 9px;
         color: #6256d9;
         background: #fff;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 700;
 
         svg { width: 15px; height: 15px; }
