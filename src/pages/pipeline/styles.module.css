@@ -366,6 +366,73 @@
 .stageManager {
     display: grid;
     gap: 14px;
+
+    .stageConfirmation {
+        display: grid;
+        gap: 20px;
+
+        p {
+            color: #65697d;
+            font-size: 14px;
+            line-height: 1.6;
+
+            strong {
+                color: #30344b;
+            }
+        }
+
+        .confirmActions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+
+            button {
+                min-height: 41px;
+                padding: 0 14px;
+                border: 1px solid transparent;
+                border-radius: 8px;
+                font-size: 13px;
+                font-weight: 700;
+                transition:
+                    border-color 160ms ease,
+                    box-shadow 160ms ease,
+                    background-color 160ms ease,
+                    color 160ms ease;
+
+                &:hover,
+                &:focus-visible {
+                    box-shadow: 0 4px 12px rgb(32 36 58 / 9%);
+                }
+
+                &:focus-visible {
+                    outline: 2px solid #8c83e5;
+                    outline-offset: 2px;
+                }
+            }
+
+            .cancelStageButton {
+                border-color: #e4e5ed;
+                color: #65697d;
+                background: #fff;
+
+                &:hover {
+                    border-color: #c8c9d5;
+                    background: #fafaff;
+                }
+            }
+
+            .dangerStageButton {
+                border-color: #b74755;
+                color: #fff;
+                background: #bd4b58;
+
+                &:hover {
+                    border-color: #a63e4b;
+                    background: #a63e4b;
+                }
+            }
+        }
+    }
 }
 
 .addStageForm {

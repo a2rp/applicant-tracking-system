@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { FiArrowRight, FiPlus, FiSearch, FiSettings, FiTrash2, FiUsers } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 import CandidateAvatar from "../../components/candidateAvatar";
@@ -14,6 +14,8 @@ const PipelinePage = ({ candidates, jobs, setCandidates, stages, setStages, reco
     const [stageManagerOpen, setStageManagerOpen] = useState(false);
     const [newStage, setNewStage] = useState("");
     const [stageError, setStageError] = useState("");
+    const [pendingStageDelete, setPendingStageDelete] = useState(null);
+    const cancelStageDeleteRef = useRef(null);
     const pipelineStages = stages.filter((stage) => stage !== "Rejected");
     const activeCandidates = useMemo(
         () =>
@@ -61,15 +63,36 @@ const PipelinePage = ({ candidates, jobs, setCandidates, stages, setStages, reco
         notify(`${stage} stage added`);
         recordActivity({ label: "Hiring stages", entityType: "stage", action: `added the ${stage} stage` });
     };
-    const removeStage = (stage) => {
+    const requestRemoveStage = (stage) => {
         const assigned = candidates.filter((candidate) => candidate.stage === stage).length;
         if (assigned || ["Applied", "Rejected"].includes(stage)) {
             notify(assigned ? `Move all ${assigned} candidates out of ${stage} before removing it` : `${stage} is a required system stage`, "warning");
             return;
         }
+        setPendingStageDelete(stage);
+    };
+    const confirmRemoveStage = () => {
+        const stage = pendingStageDelete;
+        if (!stage) return;
+
+        const assigned = candidates.filter((candidate) => candidate.stage === stage).length;
+        if (assigned || ["Applied", "Rejected"].includes(stage)) {
+            notify(assigned ? `Move all ${assigned} candidates out of ${stage} before removing it` : `${stage} is a required system stage`, "warning");
+            setPendingStageDelete(null);
+            return;
+        }
+
         setStages((current) => current.filter((item) => item !== stage));
+        setPendingStageDelete(null);
         notify(`${stage} stage removed`, "info");
         recordActivity({ label: "Hiring stages", entityType: "stage", action: `removed the ${stage} stage` });
+    };
+    const closeStageDialog = () => {
+        if (pendingStageDelete) {
+            setPendingStageDelete(null);
+            return;
+        }
+        setStageManagerOpen(false);
     };
 
     return (
@@ -209,27 +232,60 @@ const PipelinePage = ({ candidates, jobs, setCandidates, stages, setStages, reco
                 })}
             </div>
             {stageManagerOpen && (
-                <Dialog description="Customize the stages used across candidates and the pipeline board." onClose={() => setStageManagerOpen(false)} title="Manage hiring stages">
+                <Dialog
+                    description={pendingStageDelete
+                        ? `The ${pendingStageDelete} stage will be removed from the hiring pipeline. This action cannot be undone.`
+                        : "Customize the stages used across candidates and the pipeline board."}
+                    initialFocusRef={pendingStageDelete ? cancelStageDeleteRef : undefined}
+                    onClose={closeStageDialog}
+                    size={pendingStageDelete ? "small" : "medium"}
+                    title={pendingStageDelete ? `Remove ${pendingStageDelete} stage?` : "Manage hiring stages"}
+                >
                     <div className={styles.stageManager}>
-                        <form className={styles.addStageForm} onSubmit={addStage}>
-                            <label>
-                                <span>New stage name</span>
-                                <input maxLength="30" onChange={(event) => setNewStage(event.target.value)} placeholder="e.g. Case study" value={newStage} />
-                            </label>
-                            <button className={styles.primaryLink} type="submit"><FiPlus aria-hidden="true" /> Add stage</button>
-                        </form>
-                        {stageError && <p className={styles.stageError} role="alert">{stageError}</p>}
-                        <div className={styles.stageManagerList}>
-                            {stages.map((stage) => {
-                                const count = candidates.filter((candidate) => candidate.stage === stage).length;
-                                const locked = ["Applied", "Rejected"].includes(stage);
-                                return <div className={styles.stageManagerRow} key={stage}>
-                                    <span><StageBadge stage={stage} /> <small>{count} {count === 1 ? "candidate" : "candidates"}</small></span>
-                                    <button aria-label={`Remove ${stage} stage`} disabled={locked || count > 0} onClick={() => removeStage(stage)} title={locked ? "Required system stage" : count ? "Move candidates out of this stage first" : "Remove stage"} type="button"><FiTrash2 aria-hidden="true" /></button>
-                                </div>;
-                            })}
-                        </div>
-                        <p className={styles.managerHint}>Stages with candidates assigned are locked until those candidates move elsewhere. Applied and Rejected are required system stages.</p>
+                        {pendingStageDelete ? (
+                            <div className={styles.stageConfirmation}>
+                                <p>Remove <strong>{pendingStageDelete}</strong> from your hiring workflow?</p>
+                                <div className={styles.confirmActions}>
+                                    <button
+                                        className={styles.cancelStageButton}
+                                        onClick={() => setPendingStageDelete(null)}
+                                        ref={cancelStageDeleteRef}
+                                        type="button"
+                                    >
+                                        Keep stage
+                                    </button>
+                                    <button
+                                        className={styles.dangerStageButton}
+                                        onClick={confirmRemoveStage}
+                                        type="button"
+                                    >
+                                        Remove stage
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <form className={styles.addStageForm} onSubmit={addStage}>
+                                    <label>
+                                        <span>New stage name</span>
+                                        <input maxLength="30" onChange={(event) => setNewStage(event.target.value)} placeholder="e.g. Case study" value={newStage} />
+                                    </label>
+                                    <button className={styles.primaryLink} type="submit"><FiPlus aria-hidden="true" /> Add stage</button>
+                                </form>
+                                {stageError && <p className={styles.stageError} role="alert">{stageError}</p>}
+                                <div className={styles.stageManagerList}>
+                                    {stages.map((stage) => {
+                                        const count = candidates.filter((candidate) => candidate.stage === stage).length;
+                                        const locked = ["Applied", "Rejected"].includes(stage);
+                                        return <div className={styles.stageManagerRow} key={stage}>
+                                            <span><StageBadge stage={stage} /> <small>{count} {count === 1 ? "candidate" : "candidates"}</small></span>
+                                            <button aria-label={`Remove ${stage} stage`} disabled={locked || count > 0} onClick={() => requestRemoveStage(stage)} title={locked ? "Required system stage" : count ? "Move candidates out of this stage first" : "Remove stage"} type="button"><FiTrash2 aria-hidden="true" /></button>
+                                        </div>;
+                                    })}
+                                </div>
+                                <p className={styles.managerHint}>Stages with candidates assigned are locked until those candidates move elsewhere. Applied and Rejected are required system stages.</p>
+                            </>
+                        )}
                     </div>
                 </Dialog>
             )}
