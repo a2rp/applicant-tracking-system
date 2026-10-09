@@ -71,6 +71,7 @@ The public source repository is [github.com/a2rp/applicant-tracking-system](http
 Live app: [https://a2rp.github.io/applicant-tracking-system/](https://a2rp.github.io/applicant-tracking-system/)
 
 GitHub Pages serves the Vite build from the gh-pages branch. The Vite base path and asset metadata use the repository URL.
+The build also publishes a matching 404 document so direct visits and refreshes on nested app routes load the React page.
 
 ## Future improvements
 
