@@ -89,29 +89,11 @@
             }
         }
 
-        &::after {
-            position: absolute;
-            right: 14px;
-            bottom: 5px;
-            left: 14px;
-            height: 2px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, var(--color-primary), #9bdc98);
-            background-size: 0 100%;
-            content: "";
-            transition: background-size 180ms ease;
-        }
-
         &:hover,
         &:focus-visible {
             color: var(--color-primary-dark);
             background: #f7f6ff;
             box-shadow: 0 4px 12px rgb(32 36 58 / 5%);
-        }
-
-        &:hover::after,
-        &:focus-visible::after {
-            background-size: 100% 100%;
         }
     }
 
@@ -124,9 +106,6 @@
             color: var(--color-primary);
         }
 
-        &::after {
-            background-size: 100% 100%;
-        }
     }
 
     .navCount {
