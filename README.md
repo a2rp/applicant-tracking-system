@@ -8,46 +8,51 @@ Hirly is a frontend-only applicant tracking workspace for small hiring teams. It
 
 | Route | Purpose |
 | --- | --- |
-| / | Hiring overview with live counts, pipeline distribution, upcoming interview examples, open roles, and recent activity |
-| /candidates | Search and filter candidate profiles, review details, create or edit records, change stages, and remove profiles |
-| /jobs | Search roles, create and edit role details, update open/paused/closed status, review applicant counts, and remove roles |
-| /pipeline | Filter candidates by role and move them across hiring stages |
+| / | Hiring overview with live candidate and role counts, configurable stage reporting, upcoming interviews, average scorecard ratings, and recent activity |
+| /candidates | Search and filter profiles, create and edit candidates, attach resumes, schedule interviews, capture scorecards, and export filtered results |
+| /jobs | Search, create, edit, pause, close, remove, and export roles; applicant counts update from candidate records |
+| /pipeline | Filter candidates by role, move them through configurable hiring stages, and manage stage definitions |
 | Any other path | Not found page with a link back to the overview |
 
 ## Hiring workflows
 
 ### Candidates
 
-Use the global search or the candidate page filters to find a person by name, email, role, stage, or job. Open a profile to review contact details, source, experience, and recruiter notes. Add or edit a candidate with the role, stage, source, location, and optional notes. The stage selector in the list and the pipeline board both update the same candidate record.
+Use the global search or candidate filters to find someone by name, email, role, stage, or job. Add or edit contact details, source, location, experience, recruiter notes, and an optional PDF, DOC, or DOCX resume (up to 5 MB). The resume can be downloaded from the profile during the current session. Candidate list stage selectors and the pipeline board update the same record.
 
-Removing a candidate opens a confirmation dialog. Escape, the close button, clicking outside the dialog, or choosing Keep candidate leaves the record unchanged. Confirming removal deletes the record from this browser's workspace.
+Open a profile to schedule an interview with a type, future date and time, and interviewer. Mark it complete, cancel it with confirmation, and add a structured scorecard covering role skills, communication, problem solving, and collaboration, plus written evidence. Scorecard averages appear in the overview. Candidate and role CSV exports include the currently filtered records.
+
+Removing a candidate opens a custom confirmation dialog. Escape, the close button, clicking outside the dialog, or choosing Keep candidate leaves the record unchanged. Confirming removal updates the candidate list and session activity.
 
 ### Jobs
 
 Create a role with its title, department, location, employment type, salary range, and hiring manager. Edit those details later or change its status between Open, Paused, and Closed. Applicant totals are calculated from the candidate records assigned to each role.
 
-Removing a role uses a confirmation dialog. Candidate records assigned to the role remain in the workspace and become unassigned.
+Removing a role uses a custom confirmation dialog. Candidate records assigned to that role stay in the workspace and become unassigned.
 
 ### Overview and pipeline
 
-The overview counts update from the candidate and job records. Stage bars, active candidate totals, interview-stage counts, offer counts, role applicant totals, and the sidebar candidate count respond to changes made elsewhere in the app. Interview times and recent activity are example records and are not connected to a calendar or a live activity feed.
+The overview and activity feed update from actions in the current app session. Interview counts and times come from scheduled interviews; completed or cancelled interviews leave the upcoming list. Stage bars, scorecard averages, active candidate totals, offer counts, role applicant totals, and the sidebar candidate count respond to changes across pages.
 
-The pipeline board groups candidates into Applied, Screening, Interview, Offer, and Hired. Rejected candidates are excluded from the board. Use each card's stage selector to move a candidate; changes appear on the candidates page and overview.
+The pipeline board groups candidates by the configured hiring stages, with Rejected candidates kept out of the active board. Add custom stages from Manage stages. A stage with candidates assigned cannot be removed until those candidates move elsewhere; Applied and Rejected are required system stages. Stage updates are shared by the candidate form, candidate list, pipeline board, and overview.
 
 ## Interface details
 
 - The fixed workspace sidebar links to the four app pages. On smaller screens, the navigation opens as a drawer and closes on route selection, outside click, or Escape.
 - The top bar hides while scrolling down and returns while scrolling up. Its candidate search opens the matching candidate list. Press Ctrl+K or Command+K to focus the search field.
 - The route pages load lazily and show a text-free animated spinner while a page loads.
+- Candidate, interview, scorecard, role, and stage actions show custom toast feedback. Destructive actions use accessible custom confirmation dialogs.
+- Search, filters, candidate and role forms, status changes, exports, interview scheduling, scorecards, stage management, modal controls, and responsive navigation are interactive.
+- The visible text minimum is 13px, with body copy generally 14–16px. Reduced-motion preferences are respected.
 - The document scrollbar overlays the page and appears on pointer movement or scrolling without taking layout width.
 - Links and enabled buttons have border and shadow feedback. Sidebar navigation uses an animated underline, and reduced-motion preferences are respected.
 - Footer links contain React Icons only. Hover or keyboard focus reveals each link's name and destination in a compact tooltip.
 
 ## Demo data and storage
 
-The app starts with sample candidates and job records. Changes to candidates and jobs are saved in this browser's localStorage under hirly-candidates-v1 and hirly-jobs-v1. Data stays on this device and browser profile. It is not sent to a server, shared with another team member, or synchronized across devices. Clearing site data resets the app to its sample records.
+The app starts with sample candidates, roles, interviews, activity, and stages. All changes live in React memory for the current page session and reset to the sample data after a full reload. The app does not use localStorage, sessionStorage, IndexedDB, or a backend. Resume file contents are read into memory only; they are not uploaded to a server and are lost on reload.
 
-This project has no API, backend, authentication, email delivery, calendar integration, file upload, or access controls. It is a frontend product preview, not a production hiring system.
+This is a frontend-only product preview. It does not provide shared accounts, server persistence, access controls, email delivery, calendar synchronization, or secure document storage.
 
 ## Images and brand assets
 
@@ -75,13 +80,12 @@ The build also publishes a matching 404 document so direct visits and refreshes 
 
 ## Future improvements
 
-These are ideas and are not implemented yet:
+The app implements client-side interview scheduling, scorecards, configurable stages, CSV exports, and a session activity feed. Production use would need backend and service integrations for:
 
-- Connect candidate and role data to an API with team accounts and permission levels.
-- Add interview scheduling, calendar sync, reminders, and interviewer feedback forms.
-- Support resume uploads, parsing, and secure document storage.
-- Add configurable hiring stages, scorecards, and reporting over historical data.
-- Add exports and audit history for hiring decisions.
+- Shared API persistence, team accounts, role-based permissions, and durable audit history.
+- Calendar provider sync, timezone-aware invitations, email reminders, and interviewer notifications.
+- Secure resume storage with access controls, malware scanning, document parsing, and retention policies.
+- Historical reporting across teams and sessions, backed by durable data and export permissions.
 
 ## Links
 
