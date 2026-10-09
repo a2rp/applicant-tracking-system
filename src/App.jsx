@@ -20,7 +20,7 @@ const App = () => {
     const [stages, setStages] = useState(initialStages);
     const recordActivity = useCallback((entry) => {
         setActivity((current) => [
-            { id: `activity-${Date.now()}`, createdAt: new Date().toISOString(), ...entry },
+            { id: `activity-${Date.now()}-${Math.random().toString(36).slice(2)}`, createdAt: new Date().toISOString(), ...entry },
             ...current,
         ].slice(0, 30));
     }, []);
