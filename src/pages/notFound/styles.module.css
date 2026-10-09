@@ -1,0 +1,33 @@
+.notFound {
+    display: grid;
+    min-height: 55vh;
+    place-content: center;
+    justify-items: center;
+    gap: 12px;
+    text-align: center;
+
+    .code { color: #7268d4; font-size: 13px; font-weight: 800; letter-spacing: .12em; }
+    h1 { color: #33374d; font-size: 24px; font-weight: 750; letter-spacing: -.035em; }
+    p { color: #888c9f; font-size: 12px; }
+
+    a {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+        padding: 0 14px;
+        border: 1px solid #e4e2f6;
+        border-radius: 9px;
+        color: #6256d9;
+        background: #fff;
+        font-size: 11px;
+        font-weight: 700;
+
+        svg { width: 15px; height: 15px; }
+    }
+
+    @media (max-width: 560px) {
+        h1 { font-size: 20px; }
+    }
+}

@@ -1,0 +1,26 @@
+.loadingState {
+    display: grid;
+    min-height: clamp(240px, 55vh, 520px);
+    place-items: center;
+
+    .spinner {
+        width: 52px;
+        aspect-ratio: 1;
+        border: 3px solid var(--color-border);
+        border-top-color: var(--color-primary);
+        border-right-color: #9bdc98;
+        border-radius: 50%;
+        animation: spin 900ms linear infinite;
+        filter: drop-shadow(0 5px 12px rgb(98 86 217 / 18%));
+
+        @media (prefers-reduced-motion: reduce) {
+            animation-duration: 1800ms;
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

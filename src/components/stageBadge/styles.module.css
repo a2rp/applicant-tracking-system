@@ -1,0 +1,46 @@
+﻿.badge {
+    display: inline-flex;
+    min-height: 25px;
+    align-items: center;
+    padding: 0 9px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.applied {
+    color: #5960a8;
+    background: #f0f1ff;
+}
+
+.screening {
+    color: #297f89;
+    background: #e8f7f8;
+}
+
+.interview {
+    color: #8d6b26;
+    background: #fff6df;
+}
+
+.offer {
+    color: #6f54bb;
+    background: #f2edff;
+}
+
+.hired {
+    color: #367448;
+    background: #e9f7ec;
+}
+
+.rejected {
+    color: #b1525d;
+    background: #fff0f1;
+}
+
+.neutral {
+    color: #6f7387;
+    background: #f1f2f6;
+}

@@ -1,0 +1,39 @@
+.appShell {
+    min-height: 100vh;
+    background: var(--color-background);
+}
+
+.skipLink {
+    position: fixed;
+    z-index: 100;
+    top: -60px;
+    left: 16px;
+    padding: 10px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: #fff;
+    background: var(--color-primary-dark);
+    font-size: 14px;
+    font-weight: 650;
+
+    &:focus {
+        top: 12px;
+    }
+}
+
+.main {
+    min-height: calc(100vh - 100px);
+    margin-left: 258px;
+    padding: 96px 42px 52px;
+
+    @media (max-width: 760px) {
+        min-height: calc(100vh - 120px);
+        margin-left: 0;
+        padding: 88px 22px 36px;
+    }
+
+    @media (max-width: 420px) {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
