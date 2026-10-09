@@ -8,17 +8,47 @@ const JobsPage = lazy(() => import("./pages/jobs/index.jsx"));
 const PipelinePage = lazy(() => import("./pages/pipeline/index.jsx"));
 const NotFoundPage = lazy(() => import("./pages/notFound/index.jsx"));
 
-const AppRoutes = ({ candidates, jobs, setCandidates, setJobs }) => {
+const AppRoutes = ({
+    candidates,
+    jobs,
+    setCandidates,
+    setJobs,
+    interviews,
+    setInterviews,
+    activity,
+    recordActivity,
+    stages,
+    setStages,
+}) => {
     const location = useLocation();
-    const pageProps = { candidates, jobs, setCandidates, setJobs };
+    const pageProps = {
+        candidates,
+        jobs,
+        setCandidates,
+        setJobs,
+        interviews,
+        setInterviews,
+        activity,
+        recordActivity,
+        stages,
+        setStages,
+    };
 
     return (
         <Suspense fallback={<Loading />} key={location.pathname}>
             <Routes location={location}>
                 <Route path="/" element={<DashboardPage {...pageProps} />} />
-                <Route path="/candidates" element={<CandidatesPage key={location.search} {...pageProps} />} />
+                <Route
+                    path="/candidates"
+                    element={
+                        <CandidatesPage key={location.search} {...pageProps} />
+                    }
+                />
                 <Route path="/jobs" element={<JobsPage {...pageProps} />} />
-                <Route path="/pipeline" element={<PipelinePage {...pageProps} />} />
+                <Route
+                    path="/pipeline"
+                    element={<PipelinePage {...pageProps} />}
+                />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </Suspense>

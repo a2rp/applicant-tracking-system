@@ -1,4 +1,11 @@
-export const stages = ["Applied", "Screening", "Interview", "Offer", "Hired", "Rejected"];
+export const stages = [
+    "Applied",
+    "Screening",
+    "Interview",
+    "Offer",
+    "Hired",
+    "Rejected",
+];
 
 export const pipelineStages = stages.filter((stage) => stage !== "Rejected");
 
@@ -186,33 +193,50 @@ export const initialCandidates = [
     },
 ];
 
-export const upcomingInterviews = [
+const localDateAt = (dayOffset, hour, minute) => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() + dayOffset);
+    date.setHours(hour, minute, 0, 0);
+    return date.toISOString();
+};
+
+export const createInitialInterviews = () => [
     {
         id: "interview-01",
         candidateId: "candidate-01",
-        time: "10:30 AM",
+        scheduledAt: localDateAt(0, 10, 30),
         kind: "Portfolio review",
         interviewer: "Olivia Chen",
+        status: "Scheduled",
+        feedback: "",
     },
     {
         id: "interview-02",
         candidateId: "candidate-02",
-        time: "1:00 PM",
+        scheduledAt: localDateAt(0, 13, 0),
         kind: "Technical screen",
         interviewer: "Daniel Kim",
+        status: "Scheduled",
+        feedback: "",
     },
     {
         id: "interview-03",
         candidateId: "candidate-04",
-        time: "Tomorrow, 9:30 AM",
+        scheduledAt: localDateAt(1, 9, 30),
         kind: "Team conversation",
         interviewer: "Priya Shah",
+        status: "Scheduled",
+        feedback: "",
     },
 ];
 
-export const recentActivity = [
-    { id: "activity-01", candidateId: "candidate-01", action: "moved to Interview", time: "18 min ago" },
-    { id: "activity-02", candidateId: "candidate-05", action: "received an offer", time: "1 hr ago" },
-    { id: "activity-03", candidateId: "candidate-02", action: "added a new note", time: "2 hrs ago" },
-    { id: "activity-04", candidateId: "candidate-07", action: "was marked as Hired", time: "Yesterday" },
-];
+export const createInitialActivity = () => {
+    const now = Date.now();
+    return [
+        { id: "activity-01", candidateId: "candidate-01", action: "moved to Interview", createdAt: new Date(now - 18 * 60_000).toISOString() },
+        { id: "activity-02", candidateId: "candidate-05", action: "received an offer", createdAt: new Date(now - 60 * 60_000).toISOString() },
+        { id: "activity-03", candidateId: "candidate-02", action: "added a recruiter note", createdAt: new Date(now - 2 * 60 * 60_000).toISOString() },
+        { id: "activity-04", candidateId: "candidate-07", action: "was marked as Hired", createdAt: new Date(now - 24 * 60 * 60_000).toISOString() },
+    ];
+};
