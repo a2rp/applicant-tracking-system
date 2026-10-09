@@ -7,7 +7,10 @@ const NotFoundPage = () => (
         <span className={styles.code}>404</span>
         <h1>This page is not in the pipeline</h1>
         <p>The link may be old, or the page may have moved.</p>
-        <Link to="/"><FiArrowLeft aria-hidden="true" />Back to overview</Link>
+        <Link to="/">
+            <FiArrowLeft aria-hidden="true" />
+            Back to overview
+        </Link>
     </section>
 );
 

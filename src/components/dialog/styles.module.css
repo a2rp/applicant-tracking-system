@@ -31,7 +31,7 @@
                 color: #30344b;
                 font-size: 19px;
                 font-weight: 750;
-                letter-spacing: -.035em;
+                letter-spacing: -0.035em;
             }
 
             p {
@@ -91,7 +91,7 @@
 @keyframes dialogIn {
     from {
         opacity: 0;
-        transform: scale(.98);
+        transform: scale(0.98);
     }
 
     to {

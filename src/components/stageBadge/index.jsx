@@ -3,7 +3,9 @@
 const StageBadge = ({ stage }) => {
     const stageClass = styles[stage.toLowerCase()] || styles.neutral;
 
-    return <span className={[styles.badge, stageClass].join(" ")}>{stage}</span>;
+    return (
+        <span className={[styles.badge, stageClass].join(" ")}>{stage}</span>
+    );
 };
 
 export default StageBadge;

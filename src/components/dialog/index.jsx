@@ -2,7 +2,14 @@
 import { FiX } from "react-icons/fi";
 import styles from "./styles.module.css";
 
-const Dialog = ({ title, description, children, onClose, initialFocusRef, size = "medium" }) => {
+const Dialog = ({
+    title,
+    description,
+    children,
+    onClose,
+    initialFocusRef,
+    size = "medium",
+}) => {
     const titleId = useId();
     const descriptionId = useId();
     const panelRef = useRef(null);
@@ -15,9 +22,11 @@ const Dialog = ({ title, description, children, onClose, initialFocusRef, size =
     useEffect(() => {
         const previousFocus = document.activeElement;
         const panel = panelRef.current;
-        const firstFocusTarget = initialFocusRef?.current || panel?.querySelector(
-            "button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]",
-        );
+        const firstFocusTarget =
+            initialFocusRef?.current ||
+            panel?.querySelector(
+                "button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]",
+            );
 
         firstFocusTarget?.focus();
 
@@ -28,9 +37,11 @@ const Dialog = ({ title, description, children, onClose, initialFocusRef, size =
             }
 
             if (event.key !== "Tab" || !panel) return;
-            const focusable = Array.from(panel.querySelectorAll(
-                "button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]",
-            ));
+            const focusable = Array.from(
+                panel.querySelectorAll(
+                    "button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]",
+                ),
+            );
             if (!focusable.length) return;
 
             const first = focusable[0];
@@ -71,7 +82,12 @@ const Dialog = ({ title, description, children, onClose, initialFocusRef, size =
                         <h2 id={titleId}>{title}</h2>
                         {description && <p id={descriptionId}>{description}</p>}
                     </div>
-                    <button aria-label="Close dialog" className={styles.closeButton} onClick={onClose} type="button">
+                    <button
+                        aria-label="Close dialog"
+                        className={styles.closeButton}
+                        onClick={onClose}
+                        type="button"
+                    >
                         <FiX aria-hidden="true" />
                     </button>
                 </header>

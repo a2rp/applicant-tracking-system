@@ -38,7 +38,7 @@
         .brandName {
             font-size: 24px;
             font-weight: 800;
-            letter-spacing: -.075em;
+            letter-spacing: -0.075em;
 
             span {
                 color: #9bdc98;
@@ -51,7 +51,7 @@
         color: #9a9caf;
         font-size: 13px;
         font-weight: 750;
-        letter-spacing: .12em;
+        letter-spacing: 0.12em;
     }
 
     .navigation {
@@ -72,7 +72,11 @@
         color: #73778d;
         font-size: 14px;
         font-weight: 600;
-        transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+        transition:
+            color 160ms ease,
+            background-color 160ms ease,
+            border-color 160ms ease,
+            box-shadow 160ms ease;
 
         .navIcon {
             display: inline-flex;
@@ -293,7 +297,9 @@
             border-radius: 9px;
             color: #9699a9;
             background: #fafafe;
-            transition: border-color 160ms ease, box-shadow 160ms ease;
+            transition:
+                border-color 160ms ease,
+                box-shadow 160ms ease;
 
             &:focus-within {
                 border-color: #aaa4ec;

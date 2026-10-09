@@ -6,9 +6,22 @@
     gap: 12px;
     text-align: center;
 
-    .code { color: #7268d4; font-size: 14px; font-weight: 800; letter-spacing: .12em; }
-    h1 { color: #33374d; font-size: 24px; font-weight: 750; letter-spacing: -.035em; }
-    p { color: #888c9f; font-size: 14px; }
+    .code {
+        color: #7268d4;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+    }
+    h1 {
+        color: #33374d;
+        font-size: 24px;
+        font-weight: 750;
+        letter-spacing: -0.035em;
+    }
+    p {
+        color: #888c9f;
+        font-size: 14px;
+    }
 
     a {
         display: inline-flex;
@@ -24,10 +37,15 @@
         font-size: 13px;
         font-weight: 700;
 
-        svg { width: 15px; height: 15px; }
+        svg {
+            width: 15px;
+            height: 15px;
+        }
     }
 
     @media (max-width: 560px) {
-        h1 { font-size: 20px; }
+        h1 {
+            font-size: 20px;
+        }
     }
 }

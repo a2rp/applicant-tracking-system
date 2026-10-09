@@ -25,7 +25,7 @@
                 color: #383d55;
                 font-size: 15px;
                 font-weight: 750;
-                letter-spacing: -.04em;
+                letter-spacing: -0.04em;
 
                 img {
                     width: 24px;
@@ -73,7 +73,10 @@
                 border: 1px solid transparent;
                 border-radius: 9px;
                 color: #74788d;
-                transition: border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+                transition:
+                    border-color 160ms ease,
+                    box-shadow 160ms ease,
+                    color 160ms ease;
 
                 &:hover,
                 &:focus-visible {
