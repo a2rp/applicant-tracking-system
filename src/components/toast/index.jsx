@@ -1,8 +1,8 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FiCheckCircle, FiInfo, FiAlertTriangle, FiX, FiXCircle } from "react-icons/fi";
+import { ToastContext } from "./context";
 import styles from "./styles.module.css";
 
-const ToastContext = createContext(null);
 const iconByType = {
     success: FiCheckCircle,
     info: FiInfo,
@@ -58,10 +58,4 @@ export const ToastProvider = ({ children }) => {
             </div>
         </ToastContext.Provider>
     );
-};
-
-export const useToast = () => {
-    const notify = useContext(ToastContext);
-    if (!notify) throw new Error("useToast must be used inside ToastProvider");
-    return notify;
 };
