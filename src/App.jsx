@@ -3,6 +3,7 @@ import AppRoutes from "./AppRoutes";
 import styles from "./App.module.css";
 import Footer from "./components/footer";
 import Header from "./components/header";
+import { ToastProvider } from "./components/toast";
 import { initialCandidates, initialJobs } from "./data/seedData";
 
 const App = () => {
@@ -10,21 +11,23 @@ const App = () => {
     const [jobs, setJobs] = useState(initialJobs);
 
     return (
-        <div className={styles.appShell}>
-            <a className={styles.skipLink} href="#main-content">
-                Skip to content
-            </a>
-            <Header candidateCount={candidates.length} />
-            <main className={styles.main} id="main-content">
-                <AppRoutes
-                    candidates={candidates}
-                    jobs={jobs}
-                    setCandidates={setCandidates}
-                    setJobs={setJobs}
-                />
-            </main>
-            <Footer />
-        </div>
+        <ToastProvider>
+            <div className={styles.appShell}>
+                <a className={styles.skipLink} href="#main-content">
+                    Skip to content
+                </a>
+                <Header candidateCount={candidates.length} />
+                <main className={styles.main} id="main-content">
+                    <AppRoutes
+                        candidates={candidates}
+                        jobs={jobs}
+                        setCandidates={setCandidates}
+                        setJobs={setJobs}
+                    />
+                </main>
+                <Footer />
+            </div>
+        </ToastProvider>
     );
 };
 
