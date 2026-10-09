@@ -708,7 +708,7 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
                             <div>
                                 <StageBadge stage={selectedCandidate.stage} />
                                 <p>
-                                    {selectedCandidate.experience} experience Â·{" "}
+                                    {selectedCandidate.experience} experience |{" "}
                                     {selectedCandidate.location}
                                 </p>
                             </div>

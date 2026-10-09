@@ -294,7 +294,7 @@ const DashboardPage = ({ candidates, jobs, stages, interviews, activity }) => {
                                     <span className={styles.roleInfo}>
                                         <strong>{job.title}</strong>
                                         <small>
-                                            {job.department} Â· {job.location}
+                                            {job.department} | {job.location}
                                         </small>
                                     </span>
                                     <span className={styles.roleCount}>
