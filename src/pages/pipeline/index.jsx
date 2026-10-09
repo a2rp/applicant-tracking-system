@@ -59,7 +59,7 @@ const PipelinePage = ({ candidates, jobs, setCandidates, stages, setStages, reco
         setNewStage("");
         setStageError("");
         notify(`${stage} stage added`);
-        recordActivity({ label: "Hiring stages", action: `added the ${stage} stage` });
+        recordActivity({ label: "Hiring stages", entityType: "stage", action: `added the ${stage} stage` });
     };
     const removeStage = (stage) => {
         const assigned = candidates.filter((candidate) => candidate.stage === stage).length;
@@ -69,7 +69,7 @@ const PipelinePage = ({ candidates, jobs, setCandidates, stages, setStages, reco
         }
         setStages((current) => current.filter((item) => item !== stage));
         notify(`${stage} stage removed`, "info");
-        recordActivity({ label: "Hiring stages", action: `removed the ${stage} stage` });
+        recordActivity({ label: "Hiring stages", entityType: "stage", action: `removed the ${stage} stage` });
     };
 
     return (

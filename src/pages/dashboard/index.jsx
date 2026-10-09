@@ -119,7 +119,7 @@ const DashboardPage = ({ candidates, jobs, stages, interviews, activity }) => {
                     <span className={styles.metricLabel}>In interviews</span>
                     <strong>{interviewCount}</strong>
                     <span className={styles.metricFootnote}>
-                        Next conversations today
+                        Scheduled conversations ahead
                     </span>
                 </NavLink>
                 <NavLink className={styles.metricCard} to="/pipeline">
@@ -345,7 +345,7 @@ const DashboardPage = ({ candidates, jobs, stages, interviews, activity }) => {
                                 <NavLink
                                     className={styles.activityItem}
                                     key={item.id}
-                                    to={candidate ? "/candidates?search=" + encodeURIComponent(candidate.name) : item.label === "Hiring stages" ? "/pipeline" : "/jobs"}
+                                    to={candidate ? "/candidates?search=" + encodeURIComponent(candidate.name) : item.entityType === "stage" ? "/pipeline" : item.entityType === "job" ? "/jobs" : "/candidates"}
                                 >
                                     {candidate ? <CandidateAvatar candidate={candidate} size="small" /> : <span className={styles.activityIcon}><FiBriefcase aria-hidden="true" /></span>}
                                     <span>

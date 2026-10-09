@@ -163,7 +163,7 @@ const JobsPage = ({ jobs, candidates, setJobs, setCandidates, recordActivity }) 
         );
         setEditorOpen(false);
         notify(editingJob ? "Role details updated" : "Role created");
-        recordActivity({ label: job.title, action: editingJob ? "role details were updated" : "role was created" });
+        recordActivity({ label: job.title, entityType: "job", action: editingJob ? "role details were updated" : "role was created" });
         setEditingJob(null);
     };
     const updateStatus = (id, status) => {
@@ -171,7 +171,7 @@ const JobsPage = ({ jobs, candidates, setJobs, setCandidates, recordActivity }) 
             current.map((job) => (job.id === id ? { ...job, status } : job)),
         );
         notify("Role marked " + status.toLowerCase());
-        recordActivity({ label: jobs.find((job) => job.id === id)?.title, action: `role was marked ${status.toLowerCase()}` });
+        recordActivity({ label: jobs.find((job) => job.id === id)?.title, entityType: "job", action: `role was marked ${status.toLowerCase()}` });
     };
     const removeJob = () => {
         setJobs((current) =>
@@ -186,7 +186,7 @@ const JobsPage = ({ jobs, candidates, setJobs, setCandidates, recordActivity }) 
         );
         setPendingDelete(null);
         notify("Role removed. Candidate profiles were kept.");
-        recordActivity({ label: pendingDelete.title, action: "role was removed" });
+        recordActivity({ label: pendingDelete.title, entityType: "job", action: "role was removed" });
     };
     const exportJobs = () => {
         if (!visibleJobs.length) {

@@ -242,7 +242,7 @@ const CandidateForm = ({ candidate, jobs, stages, onCancel, onSave }) => {
                 </label>
                 <div className={`${styles.field} ${styles.resumeField}`}>
                     <span>Resume attachment <small>PDF, DOC, or DOCX · up to 5 MB · held for this session</small></span>
-                    <input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={chooseResume} ref={resumeInputRef} type="file" />
+                    <input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" aria-label="Resume attachment" onChange={chooseResume} ref={resumeInputRef} type="file" />
                     {values.resumeName && <div className={styles.resumeMeta}><span>{values.resumeName}</span><button onClick={() => { setValues((current) => ({ ...current, resumeName: "", resumeData: "" })); if (resumeInputRef.current) resumeInputRef.current.value = ""; }} type="button">Remove</button></div>}
                     {resumeError && <small className={styles.formError} role="alert">{resumeError}</small>}
                 </div>
@@ -436,7 +436,7 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
         );
         setPendingDelete(null);
         notify("Candidate removed");
-        recordActivity({ candidateId: pendingDelete.id, action: "was removed from the workspace" });
+        recordActivity({ candidateId: pendingDelete.id, label: pendingDelete.name, entityType: "candidate", action: "was removed from the workspace" });
     };
     const saveInterview = (interview) => {
         setInterviews((current) => [...current, interview].sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt)));
@@ -693,7 +693,7 @@ const CandidatesPage = ({ candidates, jobs, stages, setCandidates, interviews, s
                     />
                 </Dialog>
             )}
-            {selectedCandidate && (
+            {selectedCandidate && !interviewCandidate && !scorecardCandidate && !pendingInterviewCancel && (
                 <Dialog
                     description={roleName(selectedCandidate.jobId)}
                     onClose={() => setSelectedCandidate(null)}
