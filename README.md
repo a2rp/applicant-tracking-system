@@ -4,6 +4,12 @@
 
 Hirly is a frontend-only applicant tracking workspace for small hiring teams. It keeps open roles, candidate profiles, and stage changes together in a focused multi-page interface.
 
+## Technology stack
+
+- React 19 and React Router 7 power the interface and client-side routes.
+- Vite handles local development, production builds, and GitHub Pages deployment.
+- CSS Modules, OverlayScrollbars, React Icons, and React Tooltip support the interface.
+
 ## Screenshots
 
 This gallery shows every app route and each distinct dialog state, captured from the local production preview with demo data at a 1440 by 1000 viewport.
